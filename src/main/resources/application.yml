@@ -11,6 +11,6 @@ spring:
       enabled: true
   jpa:
     database-platform: org.hibernate.dialet.H2Dialect
-  hibernate:
-    ddl-auto: update
-  show-sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
