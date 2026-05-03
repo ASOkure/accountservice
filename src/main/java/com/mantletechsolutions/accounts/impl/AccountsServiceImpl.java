@@ -4,12 +4,14 @@ import com.mantletechsolutions.accounts.constants.AccountsConstants;
 import com.mantletechsolutions.accounts.dto.CustomerDto;
 import com.mantletechsolutions.accounts.entity.Accounts;
 import com.mantletechsolutions.accounts.entity.Customer;
+import com.mantletechsolutions.accounts.exception.CustomerAlreadyExistsException;
 import com.mantletechsolutions.accounts.mapper.CustomerMapper;
 import com.mantletechsolutions.accounts.repository.AccountsRepository;
 import com.mantletechsolutions.accounts.repository.CustomerRepository;
 import com.mantletechsolutions.accounts.service.IAccountsService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -21,6 +23,11 @@ public class AccountsServiceImpl implements IAccountsService {
     @Override
     public void createAccount(CustomerDto customerDto) {
         Customer customer = CustomerMapper.mapToCustomer(customerDto, new Customer());
+       Optional<Customer> optionalCustomer =  customerRepository.findByMobileNumber(customerDto.getMobileNumber());
+        if(optionalCustomer.isPresent()) {
+            throw new CustomerAlreadyExistsException("Customer already registered with given mobileNumber "
+                    +customerDto.getMobileNumber());
+        }
         Customer savedCustomer = customerRepository.save(customer);
         accountsRepository.save(createNewAccount(savedCustomer));
     }
