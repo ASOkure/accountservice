@@ -1,11 +1,13 @@
 package com.mantletechsolutions.accounts.service.impl;
 
 import com.mantletechsolutions.accounts.constants.AccountsConstants;
+import com.mantletechsolutions.accounts.dto.AccountsDto;
 import com.mantletechsolutions.accounts.dto.CustomerDto;
 import com.mantletechsolutions.accounts.entity.Accounts;
 import com.mantletechsolutions.accounts.entity.Customer;
 import com.mantletechsolutions.accounts.exception.CustomerAlreadyExistsException;
 import com.mantletechsolutions.accounts.exception.ResourceNotFoundException;
+import com.mantletechsolutions.accounts.mapper.AccountsMapper;
 import com.mantletechsolutions.accounts.mapper.CustomerMapper;
 import com.mantletechsolutions.accounts.repository.AccountsRepository;
 import com.mantletechsolutions.accounts.repository.CustomerRepository;
@@ -64,7 +66,8 @@ public class AccountsServiceImpl implements IAccountsService {
 
         Accounts accounts =   accountsRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
                 ()-> new ResourceNotFoundException("Account", "customerId", customer.getCustomerId().toString()));
-
-        return null;
+       CustomerDto customerDto =  CustomerMapper.mapToCustomerDto(customer, new CustomerDto());
+       customerDto.setAccountsDto(AccountsMapper.mapToAccountsDto(accounts, new AccountsDto()));
+        return customerDto;
     }
 }
