@@ -1,4 +1,4 @@
-package com.mantletechsolutions.accounts.impl;
+package com.mantletechsolutions.accounts.service.impl;
 
 import com.mantletechsolutions.accounts.constants.AccountsConstants;
 import com.mantletechsolutions.accounts.dto.CustomerDto;
@@ -9,6 +9,7 @@ import com.mantletechsolutions.accounts.mapper.CustomerMapper;
 import com.mantletechsolutions.accounts.repository.AccountsRepository;
 import com.mantletechsolutions.accounts.repository.CustomerRepository;
 import com.mantletechsolutions.accounts.service.IAccountsService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ import java.util.Optional;
 import java.util.Random;
 
 @Service
+@AllArgsConstructor
 public class AccountsServiceImpl implements IAccountsService {
 
     private AccountsRepository accountsRepository;
@@ -47,7 +49,8 @@ public class AccountsServiceImpl implements IAccountsService {
         newAccount.setAccountNumber(randomAccNumber);
         newAccount.setAccountType(AccountsConstants.SAVINGS);
         newAccount.setBranchAddress(AccountsConstants.ADDRESS);
-        customer.setCreatedBy("Anonymous");
+        newAccount.setCreatedAt(LocalDateTime.now());
+        newAccount.setCreatedBy("Anonymous");
         return newAccount;
     }
 
