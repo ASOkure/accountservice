@@ -5,6 +5,7 @@ import com.mantletechsolutions.accounts.dto.CustomerDto;
 import com.mantletechsolutions.accounts.entity.Accounts;
 import com.mantletechsolutions.accounts.entity.Customer;
 import com.mantletechsolutions.accounts.exception.CustomerAlreadyExistsException;
+import com.mantletechsolutions.accounts.exception.ResourceNotFoundException;
 import com.mantletechsolutions.accounts.mapper.CustomerMapper;
 import com.mantletechsolutions.accounts.repository.AccountsRepository;
 import com.mantletechsolutions.accounts.repository.CustomerRepository;
@@ -37,6 +38,8 @@ public class AccountsServiceImpl implements IAccountsService {
         accountsRepository.save(createNewAccount(savedCustomer));
     }
 
+
+
     /**
      * @param customer - Customer Object
      * @return the new account details
@@ -54,4 +57,14 @@ public class AccountsServiceImpl implements IAccountsService {
         return newAccount;
     }
 
+    @Override
+    public CustomerDto fetchAccount(String mobileNumber) {
+     Customer customer =   customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
+        ()-> new ResourceNotFoundException("customer", "mobileNumber", mobileNumber));
+
+        Accounts accounts =   accountsRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
+                ()-> new ResourceNotFoundException("Account", "customerId", customer.getCustomerId().toString()));
+
+        return null;
+    }
 }
