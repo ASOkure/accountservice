@@ -1,6 +1,10 @@
 server:
   port: 8081
 spring:
+  application:
+    name: "account"
+  profiles:
+    active: "prod"
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
@@ -15,20 +19,4 @@ spring:
       ddl-auto: update
     show-sql: true
   config:
-    import:
-      - "application_qa.yml"
-      - "application_prod.yml"
-    profiles:
-      active:
-        - "qa"
-build:
-  version: "3.0"
-
-accounts:
-  message: "Welcome to Bank accounts related local APIs "
-  contactDetails:
-    name: "Sam Okure - Developer"
-    email: "john@mantletechsolutions.com"
-  onCallSupport:
-    - (+44) 7741368-555
-    - (+44) 7741368-555
+    import: "optional:configserver:http://localhost:8071"
