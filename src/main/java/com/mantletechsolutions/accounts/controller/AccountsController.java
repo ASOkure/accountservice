@@ -5,7 +5,6 @@ import com.mantletechsolutions.accounts.dto.AccountsContactInfoDto;
 import com.mantletechsolutions.accounts.dto.CustomerDto;
 import com.mantletechsolutions.accounts.dto.ErrorResponseDto;
 import com.mantletechsolutions.accounts.dto.ResponseDto;
-import com.mantletechsolutions.accounts.entity.Accounts;
 import com.mantletechsolutions.accounts.service.IAccountsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -39,7 +38,6 @@ public class AccountsController {
 
     @Autowired
     private Environment environment;
-
 
     @Autowired
     private AccountsContactInfoDto accountsContactInfoDto;
