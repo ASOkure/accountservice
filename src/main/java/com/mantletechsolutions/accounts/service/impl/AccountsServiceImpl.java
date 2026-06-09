@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 import org.aspectj.weaver.ast.Var;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cloud.stream.function.StreamBridge;
+//import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -31,7 +31,7 @@ public class AccountsServiceImpl implements IAccountsService {
 
     private AccountsRepository accountsRepository;
     private CustomerRepository customerRepository;
-    private  final StreamBridge streamBridge;
+  //  private  final StreamBridge streamBridge;
 
     @Override
     public void createAccount(CustomerDto customerDto) {
@@ -44,17 +44,17 @@ public class AccountsServiceImpl implements IAccountsService {
 
         Customer savedCustomer = customerRepository.save(customer);
         Accounts savedAccount =     accountsRepository.save(createNewAccount(savedCustomer));
-        sendCommunication(savedAccount, savedCustomer);
+       // sendCommunication(savedAccount, savedCustomer);
     }
 
-private  void sendCommunication(Accounts accounts, Customer customer){
+/*private  void sendCommunication(Accounts accounts, Customer customer){
 
      var accountsMsgDto = new AccountsMsgDto(accounts.getAccountNumber(),
              customer.getName(), customer.getEmail(), customer.getMobileNumber());
      log.info("Sending Communication request for the details: {}", accountsMsgDto);
      var result = streamBridge.send("sendCommunication-out-0", accountsMsgDto);
      log.info("Is the Communication request successfully processed?: {}", result);
-}
+}*/
 
     /**
      * @param customer - Customer Object
