@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Pattern;
-import org.apache.http.HttpStatus;
+import org.springframework.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -60,7 +60,7 @@ public class CustomerController {
                                                                    String mobileNumber){
         logger.debug("bank-correlation-id found: {} ", correlationId);
         CustomerDetailsDto customerDetailsDto = iCustomersService.fetchCustomerDetails(mobileNumber, correlationId);
-        return ResponseEntity.status(HttpStatus.SC_OK).body(customerDetailsDto);
+        return ResponseEntity.status(HttpStatus.OK).body(customerDetailsDto);
 
     }
 
