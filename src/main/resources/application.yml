@@ -42,6 +42,9 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8070/eureka/
 
+build:
+  version: "1.0"
+
 info:
   app:
     name: "accounts"
